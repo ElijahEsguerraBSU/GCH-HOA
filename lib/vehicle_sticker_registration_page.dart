@@ -70,6 +70,7 @@ class VehicleStickerRegistrationPage extends StatelessWidget {
                     backgroundColor: customPrimaryColor,
                     minimumSize: const Size(double.infinity, 50),
                   ),
+                  
                   child: const Text("SUBMIT", style: TextStyle(color: Colors.white)),
                 ),
                 const SizedBox(height: 20),

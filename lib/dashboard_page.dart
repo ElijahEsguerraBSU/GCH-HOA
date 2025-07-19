@@ -236,7 +236,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 8,
+                                    fontSize: 12,
                                   ),
                                 ),
                               ],
@@ -390,7 +390,7 @@ class _HoverZoomCardState extends State<_HoverZoomCard> {
                     Text(
                       widget.desc,
                       style: const TextStyle(
-                          fontSize: 13, color: Colors.black87),
+                          fontSize: 16, color: Colors.black87),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),

@@ -31,16 +31,19 @@ class _BillingPageState extends State<BillingPage> {
             color: Colors.white,
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-            size: 24,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+            leading: Tooltip(
+              message: "Back",
+              child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 24,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -279,66 +282,72 @@ class _BillingPageState extends State<BillingPage> {
 
                       // Submit Button
                       Center(
-                        child: MaterialButton(
-                          onPressed: () {
-                            // TODO: Implement submit logic here
-                          },
-                          color: customPrimaryColor,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 12),
-                          textColor: Colors.white,
-                          child: const Text(
-                            "Submit Payment Receipt",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+        child: MaterialButton(
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Payment successfully sent'),
+                backgroundColor: Colors.black,
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          },
+          color: customPrimaryColor,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 12),
+          textColor: Colors.white,
+          child: const Text(
+            "Submit Payment Receipt",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      ),             
+        ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 30), // Spacing before the new button
+
+                  // View Payment History Button (Updated)
+                  Center(
+                    child: MaterialButton(
+                      onPressed: () {
+                        // Navigate to the PaymentHistoryPage
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const PaymentHistoryPage()),
+                        );
+                      },
+                      elevation: 0, // Removed the drop shadow
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: const BorderSide(
+                            color: Color.fromARGB(255, 190, 190, 190)), // Added border with the specified color
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                      textColor: const Color.fromARGB(
+                          255, 190, 190, 190), // Changed text color to the specified color
+                      child: const Text(
+                        "View Payment History",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 30), // Spacing before the new button
-
-            // View Payment History Button (Updated)
-            Center(
-              child: MaterialButton(
-                onPressed: () {
-                  // Navigate to the PaymentHistoryPage
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const PaymentHistoryPage()),
-                  );
-                },
-                elevation: 0, // Removed the drop shadow
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  side: const BorderSide(
-                      color: Color.fromARGB(255, 190, 190, 190)), // Added border with the specified color
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                textColor: const Color.fromARGB(
-                    255, 190, 190, 190), // Changed text color to the specified color
-                child: const Text(
-                  "View Payment History",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+          );
+        }
 
   // Helper widget to build a single billing row
   Widget _buildBillingRow(
@@ -391,7 +400,7 @@ class _BillingPageState extends State<BillingPage> {
               textAlign: TextAlign.right,
               style: const TextStyle(
                 fontWeight: FontWeight.w400,
-                fontSize: 12,
+                fontSize: 10,
                 color: Color(0xff000000),
               ),
             ),
