@@ -188,7 +188,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Your Community Dashboard Branch Test",
+                      "Your Community Dashboard",
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
