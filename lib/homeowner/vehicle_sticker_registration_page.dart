@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
+import '../main.dart';
 
 class VehicleStickerRegistrationPage extends StatelessWidget {
   @override
@@ -64,15 +64,29 @@ class VehicleStickerRegistrationPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
+                
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Handle submission logic here
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: customPrimaryColor,
-                    minimumSize: const Size(double.infinity, 50),
+                    foregroundColor: Colors.white, // Blue background
+                    minimumSize: const Size(double.infinity, 50), // Full-width button
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
-                  
-                  child: const Text("SUBMIT", style: TextStyle(color: Colors.white)),
+                  child: const Text(
+                    "SUBMIT",
+                    style: TextStyle(
+                      color: Colors.white, // White text
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
+
                 const SizedBox(height: 20),
                 const Text("Registration Status:", style: TextStyle(fontWeight: FontWeight.bold)),
                 Row(

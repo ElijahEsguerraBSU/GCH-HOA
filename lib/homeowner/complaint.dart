@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart'; // Assuming customPrimaryColor is defined here
+import '../main.dart'; // Assuming customPrimaryColor is defined here
 
 class Complaint extends StatefulWidget {
   @override
@@ -7,15 +7,16 @@ class Complaint extends StatefulWidget {
 }
 
 class _ComplaintState extends State<Complaint> {
-  String? _selectedCategory; // Holds the currently selected category
+  String? _selectedCategory;
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
-  // Define your complaint categories with images and names
   final List<Map<String, String>> complaintCategories = [
     {'name': 'Property Damage', 'image': 'assets/property_damage.png'},
     {'name': 'Parking Violations', 'image': 'assets/parking_violation.png'},
     {'name': 'Pet Issues', 'image': 'assets/pet_issues.png'},
     {'name': 'Noise', 'image': 'assets/noise.png'},
-    {'name': 'Maintenance Issues', 'image': 'assets/maintenance_issues.png'}, // Added new category
+    {'name': 'Maintenance Issues', 'image': 'assets/maintenance_issues.png'},
   ];
 
   @override
@@ -33,54 +34,44 @@ class _ComplaintState extends State<Complaint> {
         padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start, // Align to start
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              // --- New Title: "What is your complaint?" ---
               const Padding(
-                padding: EdgeInsets.only(bottom: 20.0), // Add some bottom padding
+                padding: EdgeInsets.only(bottom: 20.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "What is your complaint?",
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 20, // Increased font size for prominence
+                      fontSize: 20,
                       color: Color(0xff000000),
                     ),
                   ),
                 ),
               ),
-              // --- End New Title ---
-
-              // --- Categories Title ---
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 10), // Adjusted padding
+                padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Categories:",
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      fontStyle: FontStyle.normal,
                       fontSize: 16,
                       color: Color(0xff000000),
                     ),
                   ),
                 ),
               ),
-              // --- End Categories Title ---
-
-              // --- Horizontal Scrollable Category Collage ---
-              Padding( // This padding wraps the scrollable list
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
                 child: SizedBox(
-                  height: 120, // Height for the horizontal scrollable list of category cards
+                  height: 120,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 0.0), // Padding inside ListView
                     itemCount: complaintCategories.length,
                     itemBuilder: (context, index) {
                       final category = complaintCategories[index];
@@ -93,7 +84,7 @@ class _ComplaintState extends State<Complaint> {
                         },
                         child: Card(
                           margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
-                          elevation: isSelected ? 8 : 2, // Highlight selected card
+                          elevation: isSelected ? 8 : 2,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                             side: isSelected
@@ -101,7 +92,7 @@ class _ComplaintState extends State<Complaint> {
                                 : BorderSide.none,
                           ),
                           child: Container(
-                            width: 100, // Fixed width for each category card
+                            width: 100,
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -110,9 +101,9 @@ class _ComplaintState extends State<Complaint> {
                                   category['image']!,
                                   height: 60,
                                   width: 60,
-                                  fit: BoxFit.contain, // Use contain for icons/logos
+                                  fit: BoxFit.contain,
                                   errorBuilder: (context, error, stackTrace) {
-                                    return const Icon(Icons.broken_image, size: 40); // Fallback icon
+                                    return const Icon(Icons.broken_image, size: 40);
                                   },
                                 ),
                                 const SizedBox(height: 4),
@@ -136,107 +127,36 @@ class _ComplaintState extends State<Complaint> {
                   ),
                 ),
               ),
-              // --- Added padding below the scrollable ---
-              const SizedBox(height: 20), // Adjust this value for more or less space
-              // --- End Added padding ---
-
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                 child: TextField(
-                  controller: TextEditingController(), // You might want to make this a state variable
-                  obscureText: false,
-                  textAlign: TextAlign.start,
+                  controller: _titleController,
                   maxLines: 1,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
                   decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: const BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: const BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: const BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                    ),
                     hintText: "Title",
-                    hintStyle: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff000000),
-                    ),
                     filled: true,
                     fillColor: const Color(0xfff2f2f3),
-                    isDense: false,
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: TextField(
-                  controller: TextEditingController(), // You might want to make this a state variable
-                  obscureText: false,
-                  textAlign: TextAlign.start,
+                  controller: _descriptionController,
                   maxLines: 8,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
                   decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: const BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: const BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: const BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                    ),
                     hintText: "What is the problem?",
-                    hintStyle: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff000000),
-                    ),
                     filled: true,
                     fillColor: const Color(0xfff2f2f3),
-                    isDense: false,
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
               ),
@@ -244,19 +164,59 @@ class _ComplaintState extends State<Complaint> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: MaterialButton(
                   onPressed: () {
-                    // Handle submission logic here
-                    if (_selectedCategory != null) {
+                      final String title = _titleController.text.trim();
+                      final String description = _descriptionController.text.trim();
+
+                      if (_selectedCategory == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Please select a complaint category.'),
+                            backgroundColor: Colors.black,
+                          ),
+                        );
+                        return;
+                      }
+
+                      if (title.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Title cannot be empty.'),
+                            backgroundColor: Colors.black,
+                          ),
+                        );
+                        return;
+                      }
+
+                      if (description.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Description cannot be empty.'),
+                            backgroundColor: Colors.black,
+                          ),
+                        );
+                        return;
+                      }
+
+                      // ✅ If all fields are valid, process the complaint
                       print('Complaint Category: $_selectedCategory');
-                      // Add logic to get title and description from TextFields
+                      print('Title: $title');
+                      print('Description: $description');
+
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Complaint for $_selectedCategory submitted!')),
+                        SnackBar(
+                          content: Text('Complaint submitted successfully!'),
+                          backgroundColor: Colors.green,
+                        ),
                       );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Please select a complaint category.')),
-                      );
-                    }
-                  },
+
+                      // Optional: Clear form after submission
+                      _titleController.clear();
+                      _descriptionController.clear();
+                      setState(() {
+                        _selectedCategory = null;
+                      });
+                    },
+
                   color: const Color(0xff3a57e8),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
@@ -272,18 +232,13 @@ class _ComplaintState extends State<Complaint> {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
                     ),
                   ),
                 ),
               ),
               const Text(
                 "*Complaints will be sent and reviewed by the GCH HOA Connect team*",
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.clip,
                 style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.normal,
                   fontSize: 8,
                   color: Color(0x80000000),
                 ),
