@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart'; // Assuming customPrimaryColor is defined here
+import '../main.dart'; // Assuming customPrimaryColor is defined here
 
 class FeedbackPage extends StatefulWidget {
   @override
@@ -277,22 +277,56 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                   child: MaterialButton(
                     onPressed: () {
-                      // You can access the selected values here:
-                      // _feedbackType (String?): "General" or "Bug Report"
-                      // _selectedRating (int): 0 to 5
-                      // _titleController.text (String): Title from the TextField
-                      // _descriptionController.text (String): Description from the TextField
+                    final String title = _titleController.text.trim();
+                    final String description = _descriptionController.text.trim();
 
-                      print("Feedback Type: $_feedbackType");
-                      print("Rating: $_selectedRating stars");
-                      print("Title: ${_titleController.text}");
-                      print("Description: ${_descriptionController.text}");
-
-                      // Implement your submission logic here, e.g., send to a backend
+                    if (_feedbackType == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Feedback Submitted!')),
+                        SnackBar(content: Text('Please select a feedback type.')),
                       );
-                    },
+                      return;
+                    }
+
+                    if (_selectedRating == 0) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Please select a star rating.')),
+                      );
+                      return;
+                    }
+
+                    if (title.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Please enter a title.')),
+                      );
+                      return;
+                    }
+
+                    if (description.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Please enter a comment.')),
+                      );
+                      return;
+                    }
+
+                    // If all fields are valid, proceed
+                    print("Feedback Type: $_feedbackType");
+                    print("Rating: $_selectedRating stars");
+                    print("Title: $title");
+                    print("Description: $description");
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Feedback Submitted!')),
+                    );
+
+                    // Clear form after submission (optional)
+                    setState(() {
+                      _feedbackType = null;
+                      _selectedRating = 0;
+                      _titleController.clear();
+                      _descriptionController.clear();
+                    });
+                  },
+
                     color: Color(0xff2c50cb),
                     elevation: 0,
                     shape: RoundedRectangleBorder(

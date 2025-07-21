@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart'; // Assuming customPrimaryColor is defined here
+import '../main.dart'; // Assuming customPrimaryColor is defined here
 
 class FacilityBooking extends StatefulWidget {
   @override
@@ -238,7 +238,11 @@ class _FacilityBookingState extends State<FacilityBooking> {
                     print('Facility: $_selectedFacility');
                     // Add your actual booking submission logic
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Booking for $_selectedFacility submitted!')),
+                      SnackBar(
+                        content: Text('Booking for $_selectedFacility submitted!'),
+                        backgroundColor: Colors.green,
+                      )
+                      ,
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

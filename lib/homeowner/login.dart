@@ -4,7 +4,6 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -12,6 +11,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _srCodeController = TextEditingController(text: 'HO-');
   final _passwordController = TextEditingController();
+  final FocusNode _passwordFocusNode = FocusNode(); // For field focus control
+  bool _obscurePassword = true;
 
   void _handleLogin() {
     if (_formKey.currentState!.validate()) {
@@ -44,18 +45,37 @@ class _LoginPageState extends State<LoginPage> {
                   // HO-Code Field
                   TextFormField(
                     controller: _srCodeController,
-                    decoration: const InputDecoration(
-                      hintText: 'HO-Code',
-                      border: OutlineInputBorder(),
-                    ),
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (_) {
+                      FocusScope.of(context).requestFocus(_passwordFocusNode);
+                    },
                     autofillHints: const <String>[],
+                    style: const TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      hintText: 'HO-Code',
+                      hintStyle: const TextStyle(color: Colors.white),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.blue, width: 2),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'HO-Code is required';
                       }
                       final hoCodeRegex = RegExp(r'^HO-\d{5}$');
                       if (!hoCodeRegex.hasMatch(value)) {
-                        return 'Invalid format.';
+                        return 'Invalid format. Use HO-12345';
                       }
                       return null;
                     },
@@ -65,14 +85,44 @@ class _LoginPageState extends State<LoginPage> {
                   // Password Field
                   TextFormField(
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: _obscurePassword,
+                    keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,
+                    focusNode: _passwordFocusNode,
                     onFieldSubmitted: (_) => _handleLogin(),
-                    decoration: const InputDecoration(
-                      hintText: 'Password',
-                      border: OutlineInputBorder(),
-                    ),
                     autofillHints: const <String>[],
+                    style: const TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                      hintStyle: const TextStyle(color: Colors.black),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.blue, width: 2),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Password is required';
@@ -82,7 +132,6 @@ class _LoginPageState extends State<LoginPage> {
                       return null;
                     },
                   ),
-
                   const SizedBox(height: 10),
 
                   Align(
@@ -92,19 +141,24 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text("Forgot Password?"),
                     ),
                   ),
-
                   const SizedBox(height: 10),
 
                   ElevatedButton(
                     onPressed: _handleLogin,
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                       minimumSize: const Size(double.infinity, 48),
                     ),
                     child: const Text("Login"),
                   ),
 
                   TextButton(
-                    onPressed: () => Navigator.pushNamed(context, '/register'),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, '/register'),
                     child: const Text("Don't have an account? Register"),
                   ),
                 ],

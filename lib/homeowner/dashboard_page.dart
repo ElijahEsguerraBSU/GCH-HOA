@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'chatbot_dialog.dart';
-import 'main.dart';
+import '../main.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -53,7 +53,7 @@ class _DashboardPageState extends State<DashboardPage> {
   final List<String> communityReminders = [
     "Keep noise levels low after 9 PM.",
     "Garbage collection is every Monday and Thursday.",
-    "Please maintain cleanliness in your sorroundings.",
+    "Please maintain cleanliness in your surroundings.",
   ];
 
   void _navigateToFunction(String label) {
@@ -107,6 +107,32 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
+  void _logout() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(
+        child: AlertDialog(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 12),
+              Text("Logging out..."),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    if (mounted) {
+      Navigator.of(context).pop();
+      Navigator.pushReplacementNamed(context, '/');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     const crossAxisCount = 4;
@@ -131,9 +157,9 @@ class _DashboardPageState extends State<DashboardPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Michaella Asinas",
-                      style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight. w900)),
+                      style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900)),
                   Text("Homeowner",
-                      style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight. w700)),
+                      style: TextStyle(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.w700)),
                 ],
               ),
             ),
@@ -142,8 +168,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 Tooltip(
                   message: 'View Notifications',
                   child: IconButton(
-                    icon: const Icon(Icons.notifications,
-                        color: Colors.white, size: 30),
+                    icon: const Icon(Icons.notifications, color: Colors.white, size: 30),
                     onPressed: () => _showNotificationDialog(context),
                   ),
                 ),
@@ -159,8 +184,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                       child: Text(
                         '$notificationCount',
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 10),
+                        style: const TextStyle(color: Colors.white, fontSize: 10),
                       ),
                     ),
                   ),
@@ -170,8 +194,7 @@ class _DashboardPageState extends State<DashboardPage> {
               message: 'Logout',
               child: IconButton(
                 icon: const Icon(Icons.logout, color: Colors.white),
-                onPressed: () =>
-                    Navigator.pushReplacementNamed(context, '/'),
+                onPressed: _logout,
               ),
             ),
           ],
@@ -201,8 +224,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: icons.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: crossAxisCount,
                         mainAxisSpacing: 12,
                         crossAxisSpacing: 12,
@@ -212,8 +234,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         return SizedBox(
                           height: 100,
                           child: ElevatedButton(
-                            onPressed: () =>
-                                _navigateToFunction(labels[index]),
+                            onPressed: () => _navigateToFunction(labels[index]),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: Colors.black,
@@ -221,15 +242,13 @@ class _DashboardPageState extends State<DashboardPage> {
                               elevation: 3,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                side: BorderSide(
-                                    color: Colors.blue.shade100, width: 1),
+                                side: BorderSide(color: Colors.blue.shade100, width: 1),
                               ),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(icons[index],
-                                    size: 30, color: Colors.blue),
+                                Icon(icons[index], size: 30, color: Colors.blue),
                                 const SizedBox(height: 8),
                                 Text(
                                   labels[index],
@@ -255,7 +274,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                     const SizedBox(height: 10),
                     SizedBox(
-                      height: 230,
+                      height: 240,
                       child: PageView.builder(
                         itemCount: announcements.length,
                         controller: PageController(viewportFraction: 0.95),
@@ -285,8 +304,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         return Card(
                           margin: const EdgeInsets.symmetric(vertical: 6),
                           child: ListTile(
-                            leading: const Icon(Icons.check_circle_outline,
-                                color: Colors.blue),
+                            leading: const Icon(Icons.check_circle_outline, color: Colors.blue),
                             title: Text(
                               communityReminders[index],
                               style: const TextStyle(fontSize: 14),
@@ -363,8 +381,7 @@ class _HoverZoomCardState extends State<_HoverZoomCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(12)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
                 child: Image.asset(
                   widget.image,
                   width: double.infinity,
@@ -373,8 +390,7 @@ class _HoverZoomCardState extends State<_HoverZoomCard> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -389,8 +405,7 @@ class _HoverZoomCardState extends State<_HoverZoomCard> {
                     const SizedBox(height: 6),
                     Text(
                       widget.desc,
-                      style: const TextStyle(
-                          fontSize: 16, color: Colors.black87),
+                      style: const TextStyle(fontSize: 14, color: Colors.black87),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),

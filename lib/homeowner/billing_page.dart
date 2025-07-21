@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart'; // Import main.dart to access customPrimaryColor
+import '../main.dart'; // Import main.dart to access customPrimaryColor
 import 'payment_history.dart'; // Import the new payment_history.dart file
 
 class BillingPage extends StatefulWidget {
@@ -286,9 +286,8 @@ class _BillingPageState extends State<BillingPage> {
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: const Text('Payment successfully sent'),
-                backgroundColor: Colors.black,
-                behavior: SnackBarBehavior.floating,
+                content: const Text('Payment successfully sent!'),
+                backgroundColor: Colors.green,
               ),
             );
           },

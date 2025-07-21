@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart'; // Make sure this import correctly points to where customPrimaryColor is defined
+import '../main.dart'; // Make sure this import correctly points to where customPrimaryColor is defined
 
 class IncidentReportPage extends StatelessWidget {
   @override

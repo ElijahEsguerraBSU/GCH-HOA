@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart'; // Import main.dart to access customPrimaryColor (assuming it's in main.dart)
+import '../main.dart'; // Import main.dart to access customPrimaryColor (assuming it's in main.dart)
 
 class PaymentHistoryPage extends StatelessWidget {
   const PaymentHistoryPage({super.key});
@@ -39,7 +39,7 @@ class PaymentHistoryPage extends StatelessWidget {
       body: const Center(
         child: Text(
           "This is the Payment History Page",
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(fontSize: 18),
         ),
       ),
     );
